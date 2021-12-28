@@ -1,0 +1,61 @@
+Created on Mon Dec 27 18:20:40 2021
+
+@author: RogPaq
+"""
+
+print("Please input your gross income, and use the following code below to indicate your deduction status.")
+print("1 - Single, 2 - Joint, 3 - Head of Household, 4 - Itemized")
+
+income = float(input("Enter the annual income: ")) deduction = int(input("Enter your deduction code from above choices: ")) if deduction != 4:
+    pass
+else:
+    idemized = int(input("Enter your idemized deduction amount: "))
+
+tax = 0.0
+SD = 0.0
+
+#SD = Standard Deduction
+SD1 = 12550
+SD2 = 25100
+SD3 = 18800
+if deduction >= 4:
+    SD4 = int(idemized)
+
+if deduction <= 1:
+    SD = SD1
+elif deduction <= 2:
+    SD = SD2
+elif deduction <= 3:
+    SD = SD3
+else:
+    if deduction <= 4:
+        SD = SD4
+
+if income <= 9950:
+    tax = (income * 0.1)
+    if tax<0: tax=0
+elif income <= 40525:
+        tax = (((income - SD) - 9950) * 0.12) + 995 elif income <= 86375:
+        tax = (((income - SD) - 40525) * 0.22) + 4664 elif income <= 164925:
+        tax = (((income - SD) - 86375) * 0.24) + 14751 elif income <= 209425:
+        tax = (((income - SD) - 164925) * 0.32) + 33603 elif income <= 523600:
+        tax = (((income - SD) - 209425) * 0.35) + 47843
+else:
+    if income > 523600:
+        tax = (((income - SD) - 523600) * 0.37) + 157804.25
+      
+#SS = Social Security Tax
+SS = (income * 0.062)
+
+#MC = Medicare Tax
+MC = (income * 0.0145)
+
+#PTI = Post-Tax Income
+PTI = ((income - tax) - SS) - MC
+
+# YTL- Yearly Tax Liability
+YTL = (tax + SS + MC)
+
+tax = round(tax,0)
+SS = round(SS,0)
+print("Your yearly federal income tax is:", tax) print("Your yearly Social Security contribution is:", SS) print("Your yearly Medicare contribution is:", MC) print("Your total yearly tax liability is:",YTL) print("Your yearly Post-Tax Income is:", PTI)
